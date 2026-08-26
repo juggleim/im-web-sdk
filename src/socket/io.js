@@ -140,7 +140,9 @@ export default function IO(config){
     Storage.remove(key);
   };
   let connect = ({ token, deviceId, _isReconnect = false }, callback) => {
-    cache.set(STORAGE.CRYPTO_RANDOM, utils.getRandoms(8));
+    if(utils.isEmpty(cache.get(STORAGE.CRYPTO_RANDOM))){
+      cache.set(STORAGE.CRYPTO_RANDOM, utils.getRandoms(8));
+    }
     let _state = _isReconnect ?  CONNECT_STATE.RECONNECTING : CONNECT_STATE.CONNECTING;
     updateState({ state: _state });
     async function smack({ servers, userId }){
