@@ -72,7 +72,8 @@ export default function(io, emitter){
     if(utils.isEqual(message.name, MESSAGE_TYPE.COMMAND_CLEAR_TOTALUNREAD)){
       let { content: { clearTime } } = message;
       let conversations = conversationUtils.get();
-      conversationUtils.read(conversations);
+      let currentUser = io.getCurrentUser();
+      conversationUtils.read(conversations, currentUser.mentionClearType);
       return emitter.emit(EVENT.CLEAR_TOTAL_UNREADCOUNT, { clearTime });
     }
     if(utils.isEqual(message.name, MESSAGE_TYPE.COMMAND_REMOVE_CONVERS)){
@@ -184,7 +185,8 @@ export default function(io, emitter){
     if(utils.isEqual(message.name, MESSAGE_TYPE.CLEAR_UNREAD)){
       let { content } = message;
       let { conversations } = content;
-      let list = conversationUtils.read(conversations);
+      let currentUser = io.getCurrentUser();
+      let list = conversationUtils.read(conversations, currentUser.mentionClearType);
       emitter.emit(EVENT.CONVERSATION_CLEARUNREAD, { conversations });
       if(!utils.isEmpty(list)){
         emitter.emit(EVENT.CONVERSATION_CHANGED, { conversations: list });
@@ -491,7 +493,8 @@ export default function(io, emitter){
       let data = { topic: COMMAND_TOPICS.CLEAR_UNREAD_TOTLAL_CONVERSATION, userId };
       io.sendCommand(SIGNAL_CMD.QUERY, data, () => {
         let conversations = conversationUtils.get();
-        conversationUtils.read(conversations);
+        let currentUser = io.getCurrentUser();
+        conversationUtils.read(conversations, currentUser.mentionClearType);
         resolve();
       });
     });

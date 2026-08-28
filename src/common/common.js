@@ -397,7 +397,7 @@ function ConversationUtils(){
   let isSync = () => {
     return isSynced;
   };
-  let read = (list) => {
+  let read = (list, mentionClearType) => {
     list = utils.isArray(list) ? list : [list];
     let _list = [];
     utils.forEach(list, (item) => {
@@ -407,7 +407,9 @@ function ConversationUtils(){
       if(index > -1){
         conversations[index].latestReadIndex = item.unreadIndex;
         conversations[index].unreadCount = 0;
-        conversations[index].mentions = {};
+        if(mentionClearType == 0){
+          conversations[index].mentions = {};
+        }
         conversations[index].unreadTag = UNREAD_TAG.READ;
         _list.push(conversations[index]);
       }

@@ -98,6 +98,10 @@ const $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $
           ext: {
             type: "string",
             id: 5
+          },
+          mentionClearType: {
+            type: "int32",
+            id: 8
           }
         }
       },
@@ -1355,6 +1359,10 @@ const $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $
           latestReadIndex: {
             type: "int64",
             id: 6
+          },
+          onlyUnread: {
+            type: "bool",
+            id: 8
           }
         }
       },

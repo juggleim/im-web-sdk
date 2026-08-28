@@ -660,7 +660,8 @@ export default function(io, emitter, logger){
       let params = {
         count: 20,
         order: MENTION_ORDER.BACKWARD,
-        messageIndex: 0
+        messageIndex: 0,
+        onlyUnread: true
       };
       let user = io.getCurrentUser();
       utils.extend(params, conversation);

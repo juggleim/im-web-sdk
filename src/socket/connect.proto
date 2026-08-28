@@ -32,6 +32,7 @@ message ConnectAckMsgBody{
     string session = 3;
     int64 timestamp = 4;
     string ext = 5;
+    int32 mentionClearType = 8;
 }
 
 message DisconnectMsgBody{
@@ -438,6 +439,7 @@ message QryMentionMsgsReq{
     int32 count = 4;
     int32 order = 5;  //0：倒序；1：正序
     int64 latestReadIndex = 6;
+    bool onlyUnread = 8;
 }
 message QryMentionMsgsResp{
     repeated DownMsg mentionMsgs = 1;

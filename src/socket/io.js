@@ -439,7 +439,9 @@ export default function IO(config){
 
       let _callback = cache.get(SIGNAL_NAME.S_CONNECT_ACK) || utils.noop;
 
-      let { ack: { code, userId, timestamp: ackTime } } = result;
+      let { ack: { code, userId, timestamp: ackTime, mentionClearType } } = result;
+
+      mentionClearType = mentionClearType || 0;
    
       let state = CONNECT_STATE.CONNECT_FAILED;
       let error = common.getError(code);
@@ -464,7 +466,7 @@ export default function IO(config){
           let name = _user.nickname;
           let portrait = _user.userPortrait;
           let exts = utils.toObject(_user.extFields);
-          setCurrentUser({ name, portrait, exts, updatedTime: _user.updatedTime });
+          setCurrentUser({ name, portrait, exts, updatedTime: _user.updatedTime, mentionClearType });
 
           // 首先返回连接方法回调，确保 PC 端本地数据库同步信息时间戳优先更新至 localStorage 中
           _callback({ user: currentUserInfo, error, next: () => {

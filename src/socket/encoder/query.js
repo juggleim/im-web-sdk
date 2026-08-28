@@ -191,14 +191,15 @@ export default async function getQueryBody({ data, callback, index }, io){
   }
 
   if(utils.isEqual(COMMAND_TOPICS.GET_MENTION_MSGS, topic)){
-    let { conversationId, conversationType: channelType, count, order, messageIndex: startIndex, userId } = data;
+    let { conversationId, conversationType: channelType, count, order, messageIndex: startIndex, userId, onlyUnread } = data;
     let codec = Proto.lookup('codec.QryMentionMsgsReq');
     let message = codec.create({
       targetId: conversationId,
       channelType,
       count,
       order,
-      startIndex
+      startIndex,
+      onlyUnread
     });
     targetId = userId;
     buffer = codec.encode(message).finish();
@@ -266,11 +267,12 @@ export default async function getQueryBody({ data, callback, index }, io){
     let { conversations, userId } = data;
     conversations = utils.isArray(conversations) ? conversations : [conversations];
     let codec = Proto.lookup('codec.ClearUnreadReq');
+    let currentUser = io.getCurrentUser();
     let list = utils.map(conversations, ({ conversationType, conversationId, unreadIndex }) => {
       return { 
         channelType: conversationType,
         targetId: conversationId,
-        latestReadIndex: unreadIndex
+        latestReadIndex: currentUser.mentionClearType == 0 ? unreadIndex : 0
       };
     });
     let message = codec.create({
