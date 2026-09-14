@@ -159,6 +159,14 @@ SDK 自底向上分为三层：**Socket 层（传输 + 协议）** → **Provide
 | [im-ios-sdk](https://github.com/Juggleim/im-ios-sdk) | iOS SDK |
 | [web-im-demo](https://github.com/Juggleim/web-im-demo) | React / Vue 集成示例 |
 
+## 需要完整的即时通讯应用？
+
+JuggleIM SDK 适用于希望在现有应用中集成即时通讯能力的开发者。
+
+如果你正在开发一款独立的即时通讯产品，且不希望从零开始实现常见的 IM 产品功能，**JuggleChat** 提供 Android、iOS、Web 和 Desktop 等各端产品级商业源码，帮助你更快完成产品开发和上线。
+
+👉 [了解 JuggleChat 商业源码](https://juggle.im/#/jugglechat)
+
 ## 🤝 参与贡献
 
 我们欢迎任何形式的贡献，包括但不限于：
